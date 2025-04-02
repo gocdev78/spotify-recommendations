@@ -1,0 +1,13 @@
+version: '3'
+
+services:
+  ui:
+    container_name: spotify-recommendations-ui
+    working_dir: /usr/src/ui
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./ui/:/usr/src/ui
+    command: streamlit run app.py --server.port 8000
+    build: .
+
