@@ -173,3 +173,6 @@ cython_debug/
 
 # PyPI configuration file
 .pypirc
+# PyTorch binaries
+*.pth
+data/spotify_songs_autoencoder_prepared.csv

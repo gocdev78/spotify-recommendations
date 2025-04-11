@@ -44,6 +44,7 @@ ipython_pygments_lexers==1.1.1
 isoduration==20.11.0
 jedi==0.19.2
 Jinja2==3.1.6
+joblib==1.4.2
 json5==0.10.0
 jsonpointer==3.0.0
 jsonschema==4.23.0
@@ -110,6 +111,8 @@ rope==1.13.0
 rpds-py==0.24.0
 ruamel.yaml==0.18.10
 ruamel.yaml.clib==0.2.12
+scikit-learn==1.6.1
+scipy==1.15.2
 Send2Trash==1.8.3
 six==1.17.0
 smmap==5.0.2
@@ -118,6 +121,7 @@ soupsieve==2.6
 stack-data==0.6.3
 terminado==0.18.1
 text-unidecode==1.3
+threadpoolctl==3.6.0
 tinycss2==1.4.0
 toml==0.10.2
 tornado==6.4.2
@@ -132,4 +136,3 @@ webcolors==24.11.1
 webencodings==0.5.1
 websocket-client==1.8.0
 zipp==3.21.0
-streamlit
