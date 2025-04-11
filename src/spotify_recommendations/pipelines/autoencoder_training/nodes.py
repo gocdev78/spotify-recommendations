@@ -1,11 +1,11 @@
 import pandas as pd
-from .data import SongDataset, CollateBatch
-from .common import *
+from ..data import SongDataset
+from ..common import *
 from sklearn.model_selection import train_test_split
 from torch.utils.data import DataLoader
 import torch.nn as nn
 from torch import optim
-from .model import SongAutoencoder
+from ..model import SongAutoencoder
 import torch
 
 

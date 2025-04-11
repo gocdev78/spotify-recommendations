@@ -8,6 +8,7 @@ services:
       - "8000:8000"
     volumes:
       - ./ui/:/usr/src/ui
-    command: streamlit run app.py --server.port 8000
+      - ./data:/usr/src/ui/data
+    command: streamlit run app.py --server.port 8000 --server.runOnSave true
     build: .
 

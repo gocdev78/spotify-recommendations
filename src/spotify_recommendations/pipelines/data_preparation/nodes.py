@@ -6,6 +6,7 @@ import pandas as pd
 from sklearn.preprocessing import LabelEncoder
 from sklearn.preprocessing import StandardScaler
 import numpy as np
+import json
 
 
 def display_head(df: pd.DataFrame) -> pd.DataFrame:
@@ -16,10 +17,10 @@ def display_head(df: pd.DataFrame) -> pd.DataFrame:
 def remove_unnecessary_columns(songs: pd.DataFrame) -> pd.DataFrame:
     unnecessary_columns = [
         "Unnamed: 0",
-        "track_id",
-        "artists",
-        "album_name",
-        "track_name"
+        # "track_id",
+        # "artists",
+        # "album_name",
+        # "track_name"
     ]
 
     return songs.drop(columns=unnecessary_columns)
@@ -28,6 +29,13 @@ def remove_unnecessary_columns(songs: pd.DataFrame) -> pd.DataFrame:
 def create_genre_id(df: pd.DataFrame) -> pd.DataFrame:
     label_encoder = LabelEncoder()
     df["genre_id"] = label_encoder.fit_transform(df["track_genre"].copy())
+    mapping = dict(zip(label_encoder.classes_, [int(item) for item in label_encoder.transform(label_encoder.classes_)]))
+    path = "data/models/autoencoder/genre_id.json"
+    with open(path, "w") as f:
+        json.dump(mapping, f)
+
+    print(f"Saved genre labels to {path}")
+
     return df
 
 
