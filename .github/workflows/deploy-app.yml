@@ -1,15 +1,7 @@
-name: manage infra
+name: deploy app
 run-name: ${{ github.actor }}
 on:
   workflow_dispatch:
-    inputs:
-      action:
-        type: choice
-        options:
-          - apply
-          - destroy
-        required: true
-        description: "Terraform action"
 
 jobs:
   deploy_app:
@@ -28,8 +20,8 @@ jobs:
         if: ${{ github.event.inputs.action == 'apply' }}
         uses: google-github-actions/setup-gcloud@v1
 
-      - name: Terraform run
-        run: >
-          terraform ${{ github.event.inputs.action }} -auto-approve
-        env:
-          GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
+#      - name: Docker run
+#        run: >
+#          terraform ${{ github.event.inputs.action }} -auto-approve
+#        env:
+#          GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
