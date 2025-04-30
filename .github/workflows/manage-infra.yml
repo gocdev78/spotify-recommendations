@@ -38,8 +38,11 @@ jobs:
           GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
 
       - name: Set up Cloud SDK
+        uses: 'google-github-actions/auth@v2'
         if: ${{ github.event.inputs.action == 'apply' }}
-        uses: google-github-actions/setup-gcloud@v1
+        with:
+          project_id: 'jiit-data'
+          credentials_json: ${{ secrets.GOOGLE_CREDENTIALS }}
 
       - name: Wait for startup
         if: ${{ github.event.inputs.action == 'apply' }}
