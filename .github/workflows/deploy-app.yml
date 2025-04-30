@@ -2,6 +2,10 @@ name: deploy app
 run-name: ${{ github.actor }}
 on:
   workflow_dispatch:
+    inputs:
+      image_name:
+        description: "image name"
+        default: "httpd"
 
 jobs:
   deploy_app:
@@ -20,8 +24,6 @@ jobs:
         if: ${{ github.event.inputs.action == 'apply' }}
         uses: google-github-actions/setup-gcloud@v1
 
-#      - name: Docker run
-#        run: >
-#          terraform ${{ github.event.inputs.action }} -auto-approve
-#        env:
-#          GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
+      - name: Docker run
+        run: >
+          gcloud compute ssh --zone europe-central2-a spotify-vm -- 'docker run {{ github.event.inputs.httpd }} -d --rm -p 8000:8000'
