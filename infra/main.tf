@@ -67,7 +67,7 @@ resource "google_compute_firewall" "ssh" {
   target_tags   = ["ssh"]
 }
 
-resource "google_compute_firewall" "flask" {
+resource "google_compute_firewall" "app" {
   name    = "spotify-app-firewall"
   network = google_compute_network.spotify-vpc-net.id
 
