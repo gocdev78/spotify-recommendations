@@ -28,4 +28,6 @@ jobs:
 
       - name: Docker run
         run: >
-          gcloud compute ssh --zone europe-central2-a spotify-vm -- 'docker run -d --rm -p 8000:8000 {{ github.event.inputs.httpd }}'
+          command='docker run -d --rm -p 8000:8000 ${{ github.event.inputs.httpd }}'
+          echo 'Running $command'
+          gcloud compute ssh --zone europe-central2-a spotify-vm -- '$command'
