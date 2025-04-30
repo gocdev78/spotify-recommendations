@@ -43,4 +43,4 @@ jobs:
 
       - name: Wait for startup
         if: ${{ github.event.inputs.action == 'apply' }}
-        run: ../../infra/wait_for_startup.sh ${{ github.event.inputs.env }}
+        run: ./wait_for_startup.sh ${{ github.event.inputs.env }}
