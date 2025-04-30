@@ -1,0 +1,35 @@
+name: manage infra
+run-name: ${{ github.actor }}
+on:
+  workflow_dispatch:
+    inputs:
+      action:
+        type: choice
+        options:
+          - apply
+          - destroy
+        required: true
+        description: "Terraform action"
+
+jobs:
+  deploy_app:
+    name: "Deploy APP"
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+        working-directory: .
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Set up Cloud SDK
+        if: ${{ github.event.inputs.action == 'apply' }}
+        uses: google-github-actions/setup-gcloud@v1
+
+      - name: Terraform run
+        run: >
+          terraform ${{ github.event.inputs.action }} -auto-approve
+        env:
+          GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
