@@ -1,0 +1,46 @@
+name: manage infra
+run-name: ${{ github.actor }}
+on:
+  workflow_dispatch:
+    inputs:
+      action:
+        type: choice
+        options:
+          - apply
+          - destroy
+        required: true
+        description: "Terraform action"
+
+jobs:
+  deploy_infra_gcp:
+    name: "Deploy GCP infra"
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+        working-directory: ./infra
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup terraform
+        uses: hashicorp/setup-terraform@v1
+
+      - name: Terraform init
+        run: terraform init
+        env:
+          GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
+
+      - name: Terraform run
+        run: >
+          terraform ${{ github.event.inputs.action }} -auto-approve
+        env:
+          GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
+
+      - name: Set up Cloud SDK
+        if: ${{ github.event.inputs.action == 'apply' }}
+        uses: google-github-actions/setup-gcloud@v1
+
+      - name: Wait for startup
+        if: ${{ github.event.inputs.action == 'apply' }}
+        run: ../../infra/wait_for_startup.sh ${{ github.event.inputs.env }}
