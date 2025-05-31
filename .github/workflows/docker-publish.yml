@@ -20,8 +20,8 @@ jobs:
       - name: Log in to Docker Hub
         uses: docker/login-action@v3
         with:
-          username: gocdev78
-          password: dckr_pat_aYXfHWtmdoShgEd_3-9CCirSlp0
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: Build and push Docker image
         uses: docker/build-push-action@v5
@@ -29,7 +29,7 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: gocdev78/spotify-recommendations:latest
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/spotify-recommendations:latest
 
       - name: Log out from Docker Hub
         run: docker logout
