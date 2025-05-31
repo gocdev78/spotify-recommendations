@@ -21,7 +21,7 @@ jobs:
         uses: docker/login-action@v3
         with:
           username: gocdev78
-          password: dckr_pat_aYXfHWTmdoShgEd_3-9CCirSlp0
+          password: dckr_pat_aYXfHWtmdoShgEd_3-9CCirSlp0
 
       - name: Build and push Docker image
         uses: docker/build-push-action@v5
