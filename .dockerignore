@@ -1,7 +1,6 @@
 src
 notebooks
 *.pth
-data/dataset.csv
 *.parquet
 conf
 venv
