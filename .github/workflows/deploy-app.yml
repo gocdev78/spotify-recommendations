@@ -2,10 +2,10 @@ name: deploy app
 run-name: ${{ github.actor }}
 on:
   workflow_dispatch:
-    inputs:
-      image_name:
-        description: "image name"
-        default: "httpd"
+#    inputs:
+#      image_name:
+#        description: "image name"
+#        default: "httpd"
 
 jobs:
   deploy_app:
@@ -26,6 +26,20 @@ jobs:
           project_id: 'jiit-data'
           credentials_json: ${{ secrets.GOOGLE_CREDENTIALS }}
 
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Docker login on VM
+        run: gcloud compute ssh --zone europe-central2-a spotify-vm -- "sudo docker login -p $password -u $username"
+        env:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
       - name: Docker run
         run: >
-          gcloud compute ssh --zone europe-central2-a spotify-vm -- "sudo docker run -d --rm -p 8000:8000 ${{ github.event.inputs.image_name }}"
+          gcloud compute ssh --zone europe-central2-a spotify-vm -- "sudo docker run -d --rm -p 8000:8000 $username/spotify-recommendations:latest"
+        env:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
