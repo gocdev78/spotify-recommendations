@@ -1,7 +1,11 @@
 src
 notebooks
-data
+*.pth
+data/dataset.csv
+*.parquet
 conf
 venv
 pyproject.toml
 README
+infra
+tests

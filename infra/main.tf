@@ -33,7 +33,7 @@ resource "google_compute_subnetwork" "spotify-subnet" {
 # Create a single Compute Engine instance
 resource "google_compute_instance" "default" {
   name         = "spotify-vm"
-  machine_type = "f1-micro"
+  machine_type = "n1-standard-4	"
   zone         = var.zone
   tags         = ["ssh"]
 
