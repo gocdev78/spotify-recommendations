@@ -1,7 +1,6 @@
 src
 notebooks
 *.pth
-*.parquet
 conf
 venv
 pyproject.toml
