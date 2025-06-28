@@ -1,7 +1,9 @@
 src
 notebooks
-data
+*.pth
 conf
 venv
 pyproject.toml
 README
+infra
+tests
